@@ -14,13 +14,21 @@ snake = Snake()
 food = Food()
 scoreboard = Scoreboard()
 
+game_is_on = True
+
+
+def exit_game():
+    global game_is_on
+    game_is_on = False
+
+
 screen.listen()
 screen.onkey(snake.up, "Up")
 screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
+screen.onkey(exit_game, "x")
 
-game_is_on = True
 while game_is_on:
     screen.update()
     time.sleep(.1)
@@ -33,11 +41,13 @@ while game_is_on:
 
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
         scoreboard.reset_score()
+        food.refresh()
         snake.reset()
 
     for segment in snake.segments[3:]:
         if snake.head.distance(segment) < 5:
             scoreboard.reset_score()
+            food.refresh()
             snake.reset()
 
 screen.exitonclick()
