@@ -8,8 +8,8 @@ TWILIO_SID = os.environ.get("TWILIO_SID")
 TWILIO_TOKEN = os.environ.get("TWILIO_TOKEN")
 
 parameter = {
-    "lat": 0.0000001,       #TODO
-    "lon": -0.0000001,      #TODO
+    "lat": 0.0000001,  # TODO
+    "lon": -0.0000001,  # TODO
     "exclude": "current,minutely,daily",
     "appid": WEATHER_API_KEY,
 }
@@ -22,8 +22,8 @@ for hour_data in data:
         client = Client(TWILIO_SID, TWILIO_TOKEN)
         message = client.messages.create(
             body="It's going to rain today. Remember to bring an ☔️",
-            from_="__TWILIO NUMBER__",  #TODO
-            to="__YOUR NUMBER__",       #TODO
+            from_="___TWILIO_NUMBER__",  # TODO
+            to="___YOUR_NUMBER___",  # TODO
         )
         print(message.sid)
         break
