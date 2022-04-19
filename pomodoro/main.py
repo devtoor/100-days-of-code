@@ -1,5 +1,5 @@
 from tkinter import *
-# ---------------------------- CONSTANTS ------------------------------- #
+
 PINK = "#e2979c"
 RED = "#e7305b"
 GREEN = "#9bdeac"
@@ -9,20 +9,17 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 lap = 0
-timer = None
-
-# ---------------------------- TIMER RESET ------------------------------- # 
+timer = ""
 
 
 def reset_timer():
     global lap
-    window.after_cancel(timer)
+    if timer:
+        window.after_cancel(timer)
     head_label.config(text="Timer", fg=RED)
     canvas.itemconfig(timer_text, text="00:00")
     check_label.config(text="")
     lap = 0
-
-# ---------------------------- TIMER MECHANISM ------------------------------- # 
 
 
 def start_timer():
@@ -38,8 +35,6 @@ def start_timer():
         head_label.config(text="Work", fg=YELLOW)
         count_down(WORK_MIN * 60)
 
-# ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
-
 
 def count_down(count):
     minutes = count // 60
@@ -54,7 +49,6 @@ def count_down(count):
             check_label.config(text=f"{check_label.cget('text') + '✔'}")
 
 
-# ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Pomodoro")
 window.config(padx=100, pady=50, bg=GREEN)
