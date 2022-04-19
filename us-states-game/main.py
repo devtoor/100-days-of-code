@@ -1,5 +1,6 @@
-import pandas
 import turtle
+
+import pandas
 
 BG_IMG = "blank_states_img.gif"
 
