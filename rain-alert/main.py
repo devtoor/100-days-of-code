@@ -1,15 +1,21 @@
-import requests
 import os
+
+import requests
+from dotenv import load_dotenv
 from twilio.rest import Client
+
+load_dotenv()
 
 WEATHER_ENDPOINT = "https://api.openweathermap.org/data/2.5/onecall"
 WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
 TWILIO_SID = os.environ.get("TWILIO_SID")
 TWILIO_TOKEN = os.environ.get("TWILIO_TOKEN")
+TWILIO_NUMBER = os.environ.get("TWILIO_NUMBER")
+TWILIO_VERIFIED_NUMBER = os.environ.get("TWILIO_VERIFIED_NUMBER")
 
 parameter = {
-    "lat": 0.0000001,  # TODO
-    "lon": -0.0000001,  # TODO
+    "lat": float(os.environ.get("LATITUDE")),
+    "lon": float(os.environ.get("LONGITUDE")),
     "exclude": "current,minutely,daily",
     "appid": WEATHER_API_KEY,
 }
@@ -22,8 +28,8 @@ for hour_data in data:
         client = Client(TWILIO_SID, TWILIO_TOKEN)
         message = client.messages.create(
             body="It's going to rain today. Remember to bring an ☔️",
-            from_="___TWILIO_NUMBER__",  # TODO
-            to="___YOUR_NUMBER___",  # TODO
+            from_=TWILIO_NUMBER,
+            to=TWILIO_VERIFIED_NUMBER
         )
         print(message.sid)
         break
