@@ -31,11 +31,6 @@ class Scoreboard(Turtle):
         self.score = 0
         self.show_score()
 
-    # def game_over(self):
-    #     self.goto(0, 0)
-    #     self.color("red")
-    #     self.write("GAME OVER!", False, ALIGNMENT, GAME_OVER_FONT)
-
     def show_score(self):
         self.clear()
         self.write(f"Score: {self.score} High Score: {self.high_score}", False, ALIGNMENT, SCORE_FONT)
