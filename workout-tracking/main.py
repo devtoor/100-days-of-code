@@ -1,17 +1,21 @@
-import requests
 import os
 from datetime import datetime
 
-GENDER = "___YOUR_GENDER___"  # TODO
-WEIGHT_KG = "___YOUR_WEIGHT_KG___"  # TODO
-HEIGHT_CM = "___YOUR_HEIGHT_CM___"  # TODO
-AGE = "___YOUR_AGE___"  # TODO
+import requests
+from dotenv import load_dotenv
 
-EXERCISE_APP_ID = os.environ.get("EXERCISE_APP_ID")  # TODO
-EXERCISE_API_KEY = os.environ.get("EXERCISE_API_KEY")  # TODO
+load_dotenv()
+
+GENDER = os.environ.get("GENDER")
+WEIGHT_KG = float(os.environ.get("WEIGHT_KG"))
+HEIGHT_CM = float(os.environ.get("HEIGHT_CM"))
+AGE = int(os.environ.get("AGE"))
+
+EXERCISE_APP_ID = os.environ.get("EXERCISE_APP_ID")
+EXERCISE_API_KEY = os.environ.get("EXERCISE_API_KEY")
 EXERCISE_ENDPOINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
-SHEET_ENDPOINT = os.environ.get("SHEET_ENDPOINT")  # TODO
-SHEET_TOKEN = os.environ.get("SHEET_TOKEN")  # TODO
+SHEET_ENDPOINT = os.environ.get("SHEET_ENDPOINT")
+SHEET_TOKEN = os.environ.get("SHEET_TOKEN")
 
 exercise_headers = {
     "x-app-id": EXERCISE_APP_ID,
@@ -34,9 +38,7 @@ today_date = datetime.now().strftime("%d/%m/%Y")
 now_time = datetime.now().strftime("%X")
 
 for exercise in exercise_list:
-    sheet_headers = {
-        "Authorization": f"Bearer {SHEET_TOKEN}"
-    }
+    sheet_headers = {"Authorization": f"Bearer {SHEET_TOKEN}"}
     sheet_body = {
         "workout": {
             "date": today_date,
