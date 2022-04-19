@@ -1,10 +1,9 @@
+import json
+from random import choice, randint, shuffle
 from tkinter import *
 from tkinter import messagebox
-from random import choice, randint, shuffle
-import pyperclip
-import json
 
-# ---------------------------- PASSWORD GENERATOR ------------------------------- #
+import pyperclip
 
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
            'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
@@ -24,8 +23,6 @@ def generate_password():
     password_entry.insert(0, password)
     pyperclip.copy(password)
 
-
-# ---------------------------- SAVE PASSWORD ------------------------------- #
 
 def save_password():
     if len(website_entry.get()) > 0 and len(username_entry.get()) > 0 and len(password_entry.get()) > 0:
@@ -59,8 +56,6 @@ def save_password():
         messagebox.showerror(message="Please make sure you haven't left any fields empty.")
 
 
-# -------------------------- SEARCH PASSWORD ----------------------------- #
-
 def search_password():
     website = website_entry.get().title()
     try:
@@ -75,8 +70,6 @@ def search_password():
         messagebox.showinfo(message=f"{website}\nUsername: {item['username']}\nPassword: {item['password']}")
         pyperclip.copy(item["password"])
 
-
-# ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
 window.title("Password Manager")
