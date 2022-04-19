@@ -1,6 +1,7 @@
-from tkinter import *
-import pandas
 import random
+from tkinter import *
+
+import pandas
 
 BACKGROUND_COLOR = "#B1DDC6"
 current_card = {}
@@ -66,5 +67,4 @@ right_button = Button(image=RIGHT_BUTTON_IMG, highlightthickness=0, bd=0, comman
 right_button.grid(column=1, row=1)
 
 generate_random_card()
-
 window.mainloop()
