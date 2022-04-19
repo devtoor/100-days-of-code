@@ -1,18 +1,24 @@
-import requests
 import os
+
+import requests
+from dotenv import load_dotenv
 from twilio.rest import Client
+
+load_dotenv()
 
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
-STOCK_API_KEY = os.environ.get("STOCK_API_KEY")  # TODO
+STOCK_API_KEY = os.environ.get("STOCK_API_KEY")
 
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
-NEWS_API_KEY = os.environ.get("NEWS_API_KEY")  # TODO
+NEWS_API_KEY = os.environ.get("NEWS_API_KEY")
 
-TWILIO_SID = os.environ.get("TWILIO_SID")  # TODO
-TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")  # TODO
+TWILIO_SID = os.environ.get("TWILIO_SID")
+TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
+TWILIO_NUMBER = os.environ.get("TWILIO_NUMBER")
+TWILIO_VERIFIED_NUMBER = os.environ.get("TWILIO_VERIFIED_NUMBER")
 
 STOCK_PARAMS = {
     "function": "TIME_SERIES_DAILY",
@@ -51,7 +57,7 @@ if abs(diff_percent) > 5:
     for article in article_list:
         message = client.messages.create(
             body=article,
-            from_="___TWILIO_NUMBER___",  # TODO
-            to="___YOUR_NUMBER___",  # TODO
+            from_=TWILIO_NUMBER,
+            to=TWILIO_VERIFIED_NUMBER
         )
         print(message.sid)
