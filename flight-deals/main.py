@@ -1,7 +1,12 @@
 from datetime import datetime, timedelta
+
+from dotenv import load_dotenv
+
 from data_manager import DataManager
 from flight_search import FlightSearch
 from notification_manager import NotificationManager
+
+load_dotenv()
 
 ORIGIN_CITY_IATA = "NYC"
 

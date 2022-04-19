@@ -1,28 +1,29 @@
-import requests
 import os
-from flight_data import FlightData
 
-TEQUILA_ENDPOINT = os.environ.get("TEQUILA_ENDPOINT")  # TODO
-TEQUILA_API_KEY = os.environ.get("TEQUILA_API_KEY")  # TODO
-HEADERS = {"apikey": TEQUILA_API_KEY}
+import requests
+
+from flight_data import FlightData
 
 
 class FlightSearch:
 
-    @staticmethod
-    def get_destination_code(city_names):
+    def __init__(self):
+        self.TEQUILA_ENDPOINT = os.environ.get("TEQUILA_ENDPOINT")
+        self.TEQUILA_API_KEY = os.environ.get("TEQUILA_API_KEY")
+        self.HEADERS = {"apikey": self.TEQUILA_API_KEY}
+
+    def get_destination_code(self, city_names):
         codes = []
         for city in city_names:
             query = {
                 "term": city,
                 "location_types": "city"
             }
-            response = requests.get(url=f"{TEQUILA_ENDPOINT}/locations/query", headers=HEADERS, params=query)
+            response = requests.get(url=f"{self.TEQUILA_ENDPOINT}/locations/query", headers=self.HEADERS, params=query)
             codes.append(response.json()["locations"][0]["code"])
         return codes
 
-    @staticmethod
-    def check_flight(origin_city_code, destination_city_code, from_time, to_time):
+    def check_flight(self, origin_city_code, destination_city_code, from_time, to_time):
         query = {
             "fly_from": origin_city_code,
             "fly_to": destination_city_code,
@@ -35,7 +36,7 @@ class FlightSearch:
             "max_stopovers": 1,
             "curr": "USD"
         }
-        response = requests.get(url=f"{TEQUILA_ENDPOINT}/v2/search", headers=HEADERS, params=query)
+        response = requests.get(url=f"{self.TEQUILA_ENDPOINT}/v2/search", headers=self.HEADERS, params=query)
         data = response.json()["data"][0]
         if data:
             flight_data = FlightData(

@@ -1,23 +1,20 @@
-import requests
 import os
 
-SHEET_ENDPOINT = os.environ.get("SHEET_ENDPOINT")  # TODO
-SHEET_TOKEN = os.environ.get("SHEET_TOKEN")  # TODO
-HEADERS = {"Authorization": f"Bearer {SHEET_TOKEN}"}
+import requests
 
 
 class DataManager:
 
     def __init__(self):
-        self.destination_data = {}
+        self.SHEET_ENDPOINT = os.environ.get("SHEET_ENDPOINT")
+        self.SHEET_TOKEN = os.environ.get("SHEET_TOKEN")
+        self.HEADERS = {"Authorization": f"Bearer {self.SHEET_TOKEN}"}
 
     def get_destination_data(self) -> {}:
-        response = requests.get(url=SHEET_ENDPOINT, headers=HEADERS)
-        self.destination_data = response.json()["prices"]
-        return self.destination_data
+        response = requests.get(url=self.SHEET_ENDPOINT, headers=self.HEADERS)
+        return response.json()["prices"]
 
-    @staticmethod
-    def update_destination_codes(codes):
+    def update_destination_codes(self, codes):
         index = 2
         for code in codes:
             body = {
@@ -25,6 +22,6 @@ class DataManager:
                     "iataCode": code
                 }
             }
-            response = requests.put(url=f"{SHEET_ENDPOINT}/{index}", headers=HEADERS, json=body)
+            response = requests.put(url=f"{self.SHEET_ENDPOINT}/{index}", headers=self.HEADERS, json=body)
             print(response.text)
             index += 1
