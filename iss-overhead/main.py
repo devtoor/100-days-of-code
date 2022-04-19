@@ -1,12 +1,18 @@
-import requests
-from datetime import datetime
+import os
 import smtplib
 import time
+from datetime import datetime
 
-MY_EMAIL = "___YOUR_EMAIL_HERE____"
-MY_PASSWORD = "___YOUR_PASSWORD_HERE___"
-MY_LAT = 51.507351      # Your latitude
-MY_LONG = -0.127758     # Your longitude
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+
+SMTP_ADDRESS = os.environ.get("SMTP_ADDRESS")
+EMAIL = os.environ.get("EMAIL")
+PASSWORD = os.environ.get("PASSWORD")
+LATITUDE = float(os.environ.get("LATITUDE"))
+LONGITUDE = float(os.environ.get("LONGITUDE"))
 
 
 def is_iss_overhead():
@@ -17,13 +23,13 @@ def is_iss_overhead():
     iss_latitude = float(data["iss_position"]["latitude"])
     iss_longitude = float(data["iss_position"]["longitude"])
 
-    return MY_LAT-5 <= iss_latitude <= MY_LAT + 5 and MY_LONG-5 <= iss_longitude <= MY_LONG+5
+    return LATITUDE - 5 <= iss_latitude <= LATITUDE + 5 and LONGITUDE - 5 <= iss_longitude <= LONGITUDE + 5
 
 
 def is_night():
     parameters = {
-        "lat": MY_LAT,
-        "lng": MY_LONG,
+        "lat": LATITUDE,
+        "lng": LONGITUDE,
         "formatted": 0,
     }
     response = requests.get(url="https://api.sunrise-sunset.org/json", params=parameters)
@@ -31,20 +37,18 @@ def is_night():
     data = response.json()
     sunrise = int(data["results"]["sunrise"].split("T")[1].split(":")[0])
     sunset = int(data["results"]["sunset"].split("T")[1].split(":")[0])
-
     time_now = datetime.now().hour
-
     return time_now >= sunset or time_now <= sunrise
 
 
 while True:
     time.sleep(60)
     if is_iss_overhead() and is_night():
-        connection = smtplib.SMTP("__YOUR_SMTP_ADDRESS_HERE___")
+        connection = smtplib.SMTP(SMTP_ADDRESS)
         connection.starttls()
-        connection.login(MY_EMAIL, MY_PASSWORD)
+        connection.login(EMAIL, PASSWORD)
         connection.sendmail(
-            from_addr=MY_EMAIL,
-            to_addrs=MY_EMAIL,
+            from_addr=EMAIL,
+            to_addrs=EMAIL,
             msg="Subject:Look Up👆\n\nThe ISS is above you in the sky."
         )
