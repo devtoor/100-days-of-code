@@ -30,15 +30,34 @@ class FlightSearch:
             "date_from": from_time.strftime("%d/%m/%Y"),
             "date_to": to_time.strftime("%d/%m/%Y"),
             "nights_in_dst_from": 21,
-            "nights_in_dst_to": 28,
+            "nights_in_dst_to": 30,
             "flight_type": "round",
             "one_for_city": 1,
-            "max_stopovers": 1,
+            "max_stopovers": 0,
             "curr": "USD"
         }
         response = requests.get(url=f"{self.TEQUILA_ENDPOINT}/v2/search", headers=self.HEADERS, params=query)
-        data = response.json()["data"][0]
-        if data:
+        try:
+            data = response.json()["data"][0]
+        except IndexError:
+            query["max_stopovers"] = 1
+            response = requests.get(url=f"{self.TEQUILA_ENDPOINT}/v2/search", headers=self.HEADERS, params=query)
+            data = response.json()["data"][0]
+            flight_data = FlightData(
+                price=data["price"],
+                origin_city=data["route"][0]["cityFrom"],
+                origin_airport=data["route"][0]["flyFrom"],
+                destination_city=data["route"][0]["cityTo"],
+                destination_airport=data["route"][0]["flyTo"],
+                out_date=data["route"][0]["local_departure"].split("T")[0],
+                return_date=data["route"][1]["local_departure"].split("T")[0],
+                stop_overs=1,
+                via_city=data["route"][0]["cityTo"]
+            )
+            print(f"{flight_data.destination_city}: ${flight_data.price}\n"
+                  f"From: {flight_data.origin_airport} {flight_data.out_date}, VIA: {flight_data.via_city}")
+            return flight_data
+        else:
             flight_data = FlightData(
                 price=data["price"],
                 origin_city=data["route"][0]["cityFrom"],
@@ -51,6 +70,3 @@ class FlightSearch:
             print(f"{flight_data.destination_city}: ${flight_data.price}\n"
                   f"From: {flight_data.origin_airport} {flight_data.out_date}")
             return flight_data
-        else:
-            print(f"No flights found for {destination_city_code}")
-            return None
