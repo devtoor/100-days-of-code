@@ -14,8 +14,7 @@ driver.get("https://www.linkedin.com/jobs/search?keywords=python%2Bdeveloper&loc
            "%2BStates&geoId=103000818&trk=public_jobs_jobs-search-bar_search-submit&currentJobId=2949978366&position=7"
            "&pageNum=0")
 
-sign_in_button = driver.find_element(by=By.LINK_TEXT, value="Sign in")
-sign_in_button.click()
+driver.find_element(by=By.LINK_TEXT, value="Sign in").click()
 time.sleep(5)
 
 email_field = driver.find_element(by=By.ID, value="username")
@@ -32,8 +31,7 @@ for listing in all_listings:
     time.sleep(2)
 
     try:
-        apply_button = driver.find_element(by=By.CSS_SELECTOR, value=".jobs-s-apply button")
-        apply_button.click()
+        driver.find_element(by=By.CSS_SELECTOR, value=".jobs-s-apply button").click()
         time.sleep(5)
 
         phone = driver.find_element(by=By.CLASS_NAME, value="fb-single-line-text__input")
