@@ -23,9 +23,7 @@ driver.find_element(by=By.XPATH, value='//*[@id="modal-manager"]/div/div/div[1]/
 sleep(2)
 
 # Switch window to FB window
-base_window = driver.window_handles[0]
-fb_login_window = driver.window_handles[1]
-driver.switch_to.window(fb_login_window)
+driver.switch_to.window(driver.window_handles[1])
 
 # Enter FB credentials
 driver.find_element(by=By.XPATH, value='//*[@id="email"]').send_keys(os.environ.get("FB_EMAIL"))
@@ -34,7 +32,7 @@ password.send_keys(os.environ.get("FB_PASSWORD"))
 password.send_keys(Keys.ENTER)
 
 # Switch back to Tinder window
-driver.switch_to.window(base_window)
+driver.switch_to.window(driver.window_handles[0])
 sleep(5)
 
 # Allow location
