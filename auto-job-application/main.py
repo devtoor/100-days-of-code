@@ -10,9 +10,11 @@ from selenium.webdriver.common.keys import Keys
 
 load_dotenv()
 driver = webdriver.Chrome(service=Service(os.environ.get("CHROME_DRIVER_PATH")))
-driver.get("https://www.linkedin.com/jobs/search?keywords=python%2Bdeveloper&location=Troy%2C%2BNew%2BYork%2C%2BUnited"
-           "%2BStates&geoId=103000818&trk=public_jobs_jobs-search-bar_search-submit&currentJobId=2949978366&position=7"
-           "&pageNum=0")
+driver.get(
+    "https://www.linkedin.com/jobs/search?keywords=python%2Bdeveloper&location=Troy%2C%2BNew%2BYork%2C%2BUnited"
+    "%2BStates&geoId=103000818&trk=public_jobs_jobs-search-bar_search-submit&currentJobId=2949978366&position=7"
+    "&pageNum=0",
+)
 
 driver.find_element(by=By.LINK_TEXT, value="Sign in").click()
 time.sleep(5)
@@ -24,7 +26,10 @@ password_field.send_keys(os.environ.get("ACCOUNT_PASSWORD"))
 password_field.send_keys(Keys.ENTER)
 time.sleep(5)
 
-all_listings = driver.find_elements(by=By.CSS_SELECTOR, value=".job-card-container--clickable")
+all_listings = driver.find_elements(
+    by=By.CSS_SELECTOR,
+    value=".job-card-container--clickable",
+)
 
 for listing in all_listings:
     listing.click()
@@ -34,15 +39,24 @@ for listing in all_listings:
         driver.find_element(by=By.CSS_SELECTOR, value=".jobs-s-apply button").click()
         time.sleep(5)
 
-        phone = driver.find_element(by=By.CLASS_NAME, value="fb-single-line-text__input")
+        phone = driver.find_element(
+            by=By.CLASS_NAME,
+            value="fb-single-line-text__input",
+        )
         if phone.text == "":
             phone.send_keys(os.environ.get("PHONE"))
 
         submit_button = driver.find_element(by=By.CSS_SELECTOR, value="footer button")
         if submit_button.get_attribute("data-control-name") == "continue_unify":
-            driver.find_element(by=By.CLASS_NAME, value="artdeco-modal__dismiss").click()
+            driver.find_element(
+                by=By.CLASS_NAME,
+                value="artdeco-modal__dismiss",
+            ).click()
             time.sleep(2)
-            driver.find_elements(by=By.CLASS_NAME, value="artdeco-modal__confirm-dialog-btn")[1].click()
+            driver.find_elements(
+                by=By.CLASS_NAME,
+                value="artdeco-modal__confirm-dialog-btn",
+            )[1].click()
             print("Complex application, skipped.")
             continue
         else:
