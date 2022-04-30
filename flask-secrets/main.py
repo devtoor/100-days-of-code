@@ -1,8 +1,8 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import Email, Length, InputRequired
+from wtforms import PasswordField, StringField, SubmitField
+from wtforms.validators import Email, InputRequired, Length
 
 app = Flask(__name__)
 app.secret_key = "dnlkv4cxnvf123ksljnmnio1wokjon"
@@ -11,7 +11,10 @@ Bootstrap(app)
 
 class LoginForm(FlaskForm):
     email = StringField(label="Email", validators=[InputRequired(), Email()])
-    password = PasswordField(label="Password", validators=[InputRequired(), Length(min=8)])
+    password = PasswordField(
+        label="Password",
+        validators=[InputRequired(), Length(min=8)],
+    )
     submit = SubmitField(label="Log In")
 
 
@@ -31,5 +34,5 @@ def login():
     return render_template("login.html", form=form)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
