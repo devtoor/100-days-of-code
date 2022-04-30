@@ -1,7 +1,7 @@
-from data import MENU, INITIAL_RESOURCES
+from data import INITIAL_RESOURCES, MENU
 
 resources = INITIAL_RESOURCES
-profit = 0
+profit = 0.0
 
 
 def show_report(money):
@@ -53,7 +53,9 @@ while is_on:
         is_on = False
     elif user_input == "report":
         show_report(profit)
-    elif user_input == "espresso" or user_input == "latte" or user_input == "cappuccino":
+    elif (
+        user_input == "espresso" or user_input == "latte" or user_input == "cappuccino"
+    ):
         if is_resources_sufficient(MENU[user_input]["ingredients"]):
             cost = MENU[user_input]["cost"]
             if is_transaction_completed(process_coins(), cost):

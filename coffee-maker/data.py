@@ -21,7 +21,7 @@ MENU = {
             "coffee": 24,
         },
         "cost": 3.0,
-    }
+    },
 }
 
 INITIAL_RESOURCES = {
