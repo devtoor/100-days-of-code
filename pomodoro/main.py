@@ -1,4 +1,8 @@
-from tkinter import *
+from tkinter import Button
+from tkinter import Canvas
+from tkinter import Label
+from tkinter import PhotoImage
+from tkinter import Tk
 
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -59,13 +63,33 @@ head_label.grid(column=1, row=0)
 canvas = Canvas(width=200, height=224, bg=GREEN, highlightthickness=0)
 img = PhotoImage(file="tomato.png")
 canvas.create_image(100, 112, image=img)
-timer_text = canvas.create_text(100, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
+timer_text = canvas.create_text(
+    100,
+    130,
+    text="00:00",
+    fill="white",
+    font=(FONT_NAME, 35, "bold"),
+)
 canvas.grid(column=1, row=1)
 
-start_button = Button(text="Start", highlightthickness=0, bd=0, pady=0, padx=0, command=start_timer)
+start_button = Button(
+    text="Start",
+    highlightthickness=0,
+    bd=0,
+    pady=0,
+    padx=0,
+    command=start_timer,
+)
 start_button.grid(column=0, row=2)
 
-reset_button = Button(text="Reset", highlightthickness=0, bd=0, pady=0, padx=0, command=reset_timer)
+reset_button = Button(
+    text="Reset",
+    highlightthickness=0,
+    bd=0,
+    pady=0,
+    padx=0,
+    command=reset_timer,
+)
 reset_button.grid(column=2, row=2)
 
 check_label = Label(fg=RED, bg=GREEN)

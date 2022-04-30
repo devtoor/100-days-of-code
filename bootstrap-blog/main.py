@@ -3,7 +3,9 @@ import smtplib
 
 import requests
 from dotenv import load_dotenv
-from flask import Flask, render_template, request
+from flask import Flask
+from flask import render_template
+from flask import request
 
 posts = requests.get(
     "https://gist.githubusercontent.com/gellowg/389b1e4d6ff8effac71badff67e4d388/raw"

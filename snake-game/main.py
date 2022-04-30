@@ -32,7 +32,7 @@ screen.onkey(exit_game, "x")
 
 while game_is_on:
     screen.update()
-    time.sleep(.1)
+    time.sleep(0.1)
     snake.move_forward()
 
     if snake.head.distance(food) < 10:
@@ -40,7 +40,12 @@ while game_is_on:
         snake.extend()
         scoreboard.increase_score()
 
-    if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
+    if (
+        snake.head.xcor() > 280
+        or snake.head.xcor() < -280
+        or snake.head.ycor() > 280
+        or snake.head.ycor() < -280
+    ):
         scoreboard.reset_score()
         food.refresh()
         snake.reset()

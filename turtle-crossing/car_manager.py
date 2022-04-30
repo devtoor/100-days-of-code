@@ -7,7 +7,6 @@ MOVE_INCREMENT = 5
 
 
 class CarManager:
-
     def __init__(self):
         self.all_cars = []
         self.car_speed = STARTING_MOVE_DISTANCE
@@ -26,7 +25,6 @@ class CarManager:
         self.car_speed += MOVE_INCREMENT
 
     class Car(Turtle):
-
         def __init__(self):
             super().__init__()
             self.shape("square")

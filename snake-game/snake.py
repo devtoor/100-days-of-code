@@ -9,7 +9,6 @@ RIGHT = 0
 
 
 class Snake:
-
     def __init__(self):
         self.segments = []
         self.head = None

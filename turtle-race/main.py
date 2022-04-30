@@ -1,9 +1,13 @@
 import random
-from turtle import *
+from turtle import Screen
+from turtle import Turtle
 
 screen = Screen()
 screen.setup(width=500, height=400)
-user_bet = screen.textinput(title="Make your bet", prompt="Enter a color ('red', 'green', 'blue'): ")
+user_bet = screen.textinput(
+    title="Make your bet",
+    prompt="Enter a color ('red', 'green', 'blue'): ",
+)
 colors = ["red", "green", "blue"]
 y_positions = [50, 0, -50]
 turtles = []

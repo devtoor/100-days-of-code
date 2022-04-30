@@ -1,15 +1,74 @@
 import json
-from random import choice, randint, shuffle
-from tkinter import *
+from random import choice
+from random import randint
+from random import shuffle
+from tkinter import Button
+from tkinter import Canvas
+from tkinter import END
+from tkinter import Entry
+from tkinter import Label
 from tkinter import messagebox
+from tkinter import PhotoImage
+from tkinter import Tk
 
 import pyperclip
 
-LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-           'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-           'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-SYMBOLS = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+LETTERS = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+]
+NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+SYMBOLS = ["!", "#", "$", "%", "&", "(", ")", "*", "+"]
 
 
 def generate_password():
@@ -19,13 +78,17 @@ def generate_password():
     random_numbers = [choice(NUMBERS) for _ in range(randint(2, 4))]
     password_list = random_letters + random_symbols + random_numbers
     shuffle(password_list)
-    password = ''.join(password_list)
+    password = "".join(password_list)
     password_entry.insert(0, password)
     pyperclip.copy(password)
 
 
 def save_password():
-    if len(website_entry.get()) > 0 and len(username_entry.get()) > 0 and len(password_entry.get()) > 0:
+    if (
+        len(website_entry.get()) > 0
+        and len(username_entry.get()) > 0
+        and len(password_entry.get()) > 0
+    ):
         website = website_entry.get().title()
         username = username_entry.get()
         password = password_entry.get()
@@ -34,11 +97,15 @@ def save_password():
             website: {
                 "username": username,
                 "password": password,
-            }}
+            },
+        }
         for _ in password:
             masked_password += "*"
-        if messagebox.askokcancel(title=website, message=f"Details: {website}\nUsername: {username}\n"
-                                                         f"Password: {masked_password}\nSave?"):
+        if messagebox.askokcancel(
+            title=website,
+            message=f"Details: {website}\nUsername: {username}\n"
+            f"Password: {masked_password}\nSave?",
+        ):
             try:
                 with open("data.json", mode="r") as file:
                     data = json.load(file)
@@ -53,7 +120,9 @@ def save_password():
                 website_entry.delete(0, END)
                 password_entry.delete(0, END)
     else:
-        messagebox.showerror(message="Please make sure you haven't left any fields empty.")
+        messagebox.showerror(
+            message="Please make sure you haven't left any fields empty.",
+        )
 
 
 def search_password():
@@ -67,7 +136,9 @@ def search_password():
     except KeyError:
         messagebox.showerror(message=f"{website} is not found.")
     else:
-        messagebox.showinfo(message=f"{website}\nUsername: {item['username']}\nPassword: {item['password']}")
+        messagebox.showinfo(
+            message=f"{website}\nUsername: {item['username']}\nPassword: {item['password']}",
+        )
         pyperclip.copy(item["password"])
 
 

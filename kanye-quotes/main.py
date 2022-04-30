@@ -1,4 +1,7 @@
-from tkinter import Button, Canvas, PhotoImage, Tk
+from tkinter import Button
+from tkinter import Canvas
+from tkinter import PhotoImage
+from tkinter import Tk
 
 import requests
 

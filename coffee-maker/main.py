@@ -1,4 +1,5 @@
-from data import INITIAL_RESOURCES, MENU
+from data import INITIAL_RESOURCES
+from data import MENU
 
 resources = INITIAL_RESOURCES
 profit = 0.0

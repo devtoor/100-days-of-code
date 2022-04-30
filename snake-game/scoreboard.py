@@ -6,7 +6,6 @@ GAME_OVER_FONT = ("Courier", 52, "bold")
 
 
 class Scoreboard(Turtle):
-
     def __init__(self):
         super().__init__()
         with open("data.txt") as file:
@@ -33,4 +32,9 @@ class Scoreboard(Turtle):
 
     def show_score(self):
         self.clear()
-        self.write(f"Score: {self.score} High Score: {self.high_score}", False, ALIGNMENT, SCORE_FONT)
+        self.write(
+            f"Score: {self.score} High Score: {self.high_score}",
+            False,
+            ALIGNMENT,
+            SCORE_FONT,
+        )
