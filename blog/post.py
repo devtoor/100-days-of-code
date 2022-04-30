@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 class Post:
     def __init__(self, post_id, title, subtitle, body):
         self.id = post_id

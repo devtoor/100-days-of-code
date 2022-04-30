@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import requests as requests
 from flask import Flask
 from flask import render_template

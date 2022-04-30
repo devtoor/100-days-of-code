@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 class FlightData:
     def __init__(
         self,

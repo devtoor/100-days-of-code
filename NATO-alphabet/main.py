@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pandas
 
 df = pandas.read_csv("nato_phonetic_alphabet.csv")

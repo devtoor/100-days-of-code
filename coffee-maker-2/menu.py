@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 class MenuItem:
     def __init__(self, name, water, milk, coffee, cost):
         self.name = name

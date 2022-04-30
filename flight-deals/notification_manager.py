@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 import smtplib
 
@@ -31,7 +33,5 @@ class NotificationManager:
                 connection.sendmail(
                     from_addr=self.EMAIL,
                     to_addrs=email,
-                    msg=f"Subject:New Low Price Flight!\n\n{message}\n{google_flight_link}".encode(
-                        "utf-8",
-                    ),
+                    msg=f"Subject:New Low Price Flight!\n\n{message}\n{google_flight_link}".encode(),
                 )

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from turtle import Turtle
 
 FONT = ("Courier", 24, "normal")

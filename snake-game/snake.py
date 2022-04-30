@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from turtle import Turtle
 
 STARTING_POSITION = [(0, 0), (-20, 0), (-40, 0)]

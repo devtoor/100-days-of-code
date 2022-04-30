@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from random import choice
 from random import randint
@@ -107,7 +109,7 @@ def save_password():
             f"Password: {masked_password}\nSave?",
         ):
             try:
-                with open("data.json", mode="r") as file:
+                with open("data.json") as file:
                     data = json.load(file)
             except FileNotFoundError:
                 with open("data.json", mode="w") as file:
@@ -128,7 +130,7 @@ def save_password():
 def search_password():
     website = website_entry.get().title()
     try:
-        with open("data.json", mode="r") as file:
+        with open("data.json") as file:
             data = json.load(file)
             item = data[website]
     except FileNotFoundError:

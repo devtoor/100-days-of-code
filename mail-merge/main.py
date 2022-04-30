@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 NAME_PLACEHOLDER = "[name]"
 
 with open("Input/Letters/starting_letter.txt") as draft:

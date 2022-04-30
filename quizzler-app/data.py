@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import requests
 
 parameters = {"amount": 10, "type": "boolean"}

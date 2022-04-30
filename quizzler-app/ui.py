@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from tkinter import Button
 from tkinter import Canvas
 from tkinter import Label

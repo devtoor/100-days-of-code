@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 class QuizBrain:
     def __init__(self, question_list):
         self.question_number = 0

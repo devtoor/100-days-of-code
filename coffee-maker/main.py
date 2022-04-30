@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from data import INITIAL_RESOURCES
 from data import MENU
 
