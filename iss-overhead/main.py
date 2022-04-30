@@ -8,11 +8,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-SMTP_ADDRESS = os.environ.get("SMTP_ADDRESS")
-EMAIL = os.environ.get("EMAIL")
-PASSWORD = os.environ.get("PASSWORD")
-LATITUDE = float(os.environ.get("LATITUDE"))
-LONGITUDE = float(os.environ.get("LONGITUDE"))
+SMTP_ADDRESS = os.getenv("SMTP_ADDRESS")
+EMAIL = os.getenv("EMAIL")
+PASSWORD = os.getenv("PASSWORD")
+LATITUDE = float(os.getenv("LATITUDE"))
+LONGITUDE = float(os.getenv("LONGITUDE"))
 
 
 def is_iss_overhead():
@@ -23,7 +23,10 @@ def is_iss_overhead():
     iss_latitude = float(data["iss_position"]["latitude"])
     iss_longitude = float(data["iss_position"]["longitude"])
 
-    return LATITUDE - 5 <= iss_latitude <= LATITUDE + 5 and LONGITUDE - 5 <= iss_longitude <= LONGITUDE + 5
+    return (
+        LATITUDE - 5 <= iss_latitude <= LATITUDE + 5
+        and LONGITUDE - 5 <= iss_longitude <= LONGITUDE + 5
+    )
 
 
 def is_night():
@@ -32,7 +35,10 @@ def is_night():
         "lng": LONGITUDE,
         "formatted": 0,
     }
-    response = requests.get(url="https://api.sunrise-sunset.org/json", params=parameters)
+    response = requests.get(
+        url="https://api.sunrise-sunset.org/json",
+        params=parameters,
+    )
     response.raise_for_status()
     data = response.json()
     sunrise = int(data["results"]["sunrise"].split("T")[1].split(":")[0])
@@ -50,5 +56,5 @@ while True:
         connection.sendmail(
             from_addr=EMAIL,
             to_addrs=EMAIL,
-            msg="Subject:Look Up👆\n\nThe ISS is above you in the sky."
+            msg="Subject:Look Up👆\n\nThe ISS is above you in the sky.",
         )

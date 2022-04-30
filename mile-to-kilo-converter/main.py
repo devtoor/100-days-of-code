@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import END, Button, Entry, Label, Tk
 
 
 def miles_to_km():

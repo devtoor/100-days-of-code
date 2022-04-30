@@ -1,4 +1,4 @@
-from os import environ as env
+import os
 from time import sleep
 
 from dotenv import load_dotenv
@@ -10,7 +10,6 @@ from selenium.webdriver.common.by import By
 
 
 class InstaFollower:
-
     def __init__(self, path):
         self.driver = webdriver.Chrome(service=Service(path))
 
@@ -18,22 +17,34 @@ class InstaFollower:
         self.driver.get("https://www.instagram.com/accounts/login/")
         sleep(5)
 
-        self.driver.find_element(by=By.NAME, value="username").send_keys(env.get("INSTAGRAM_USERNAME"))
-        self.driver.find_element(by=By.NAME, value="password").send_keys(env.get("INSTAGRAM_PASSWORD"),
-                                                                         Keys.ENTER)
+        self.driver.find_element(by=By.NAME, value="username").send_keys(
+            os.getenv("INSTAGRAM_USERNAME"),
+        )
+        self.driver.find_element(by=By.NAME, value="password").send_keys(
+            os.getenv("INSTAGRAM_PASSWORD"),
+            Keys.ENTER,
+        )
         sleep(5)
 
     def find_followers(self):
-        self.driver.get(f"https://www.instagram.com/{env.get('SIMILAR_ACCOUNT')}")
+        self.driver.get(f"https://www.instagram.com/{os.getenv('SIMILAR_ACCOUNT')}")
         sleep(2)
 
-        self.driver.find_element(by=By.XPATH, value='//*[@id="react-root"]/section/main/div/header/section/ul/li[2]/a')\
-            .click()
+        self.driver.find_element(
+            by=By.XPATH,
+            value='//*[@id="react-root"]/section/main/div/header/section/ul/li[2]/a',
+        ).click()
         sleep(2)
 
-        modal = self.driver.find_element(by=By.XPATH, value='/html/body/div[4]/div/div/div[2]')
+        modal = self.driver.find_element(
+            by=By.XPATH,
+            value="/html/body/div[4]/div/div/div[2]",
+        )
         for i in range(10):
-            self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal)
+            self.driver.execute_script(
+                "arguments[0].scrollTop = arguments[0].scrollHeight",
+                modal,
+            )
             sleep(2)
 
     def follow(self):
@@ -42,14 +53,17 @@ class InstaFollower:
             try:
                 button.click()
             except ElementClickInterceptedException:
-                self.driver.find_element(by=By.XPATH, value='/html/body/div[5]/div/div/div/div[3]/button[2]').click()
+                self.driver.find_element(
+                    by=By.XPATH,
+                    value="/html/body/div[5]/div/div/div/div[3]/button[2]",
+                ).click()
             finally:
                 sleep(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     load_dotenv()
-    bot = InstaFollower(env.get("CHROME_DRIVER_PATH"))
+    bot = InstaFollower(os.getenv("CHROME_DRIVER_PATH"))
     bot.login()
     bot.find_followers()
     bot.follow()
