@@ -5,22 +5,21 @@ from twilio.rest import Client
 
 
 class NotificationManager:
-
     def __init__(self):
-        self.TWILIO_SID = os.environ.get("TWILIO_SID")
-        self.TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
-        self.TWILIO_VIRTUAL_NUMBER = os.environ.get("TWILIO_NUMBER")
-        self.TWILIO_VERIFIED_NUMBER = os.environ.get("TWILIO_VERIFIED_NUMBER")
+        self.TWILIO_SID = os.getenv("TWILIO_SID")
+        self.TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
+        self.TWILIO_VIRTUAL_NUMBER = os.getenv("TWILIO_NUMBER")
+        self.TWILIO_VERIFIED_NUMBER = os.getenv("TWILIO_VERIFIED_NUMBER")
         self.client = Client(self.TWILIO_SID, self.TWILIO_AUTH_TOKEN)
-        self.EMAIL_PROVIDER_SMTP_ADDRESS = os.environ.get("EMAIL_PROVIDER_SMTP_ADDRESS")
-        self.EMAIL = os.environ.get("EMAIL")
-        self.EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+        self.EMAIL_PROVIDER_SMTP_ADDRESS = os.getenv("EMAIL_PROVIDER_SMTP_ADDRESS")
+        self.EMAIL = os.getenv("EMAIL")
+        self.EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
     def send_sms(self, message):
         message = self.client.messages.create(
             body=message,
             from_=self.TWILIO_VIRTUAL_NUMBER,
-            to=self.TWILIO_VERIFIED_NUMBER
+            to=self.TWILIO_VERIFIED_NUMBER,
         )
         print(message.sid)
 
@@ -32,5 +31,7 @@ class NotificationManager:
                 connection.sendmail(
                     from_addr=self.EMAIL,
                     to_addrs=email,
-                    msg=f"Subject:New Low Price Flight!\n\n{message}\n{google_flight_link}".encode('utf-8')
+                    msg=f"Subject:New Low Price Flight!\n\n{message}\n{google_flight_link}".encode(
+                        "utf-8",
+                    ),
                 )

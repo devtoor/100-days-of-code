@@ -4,11 +4,10 @@ import requests
 
 
 class DataManager:
-
     def __init__(self):
-        self.SHEET_FLIGHT_ENDPOINT = os.environ.get("SHEET_FLIGHT_ENDPOINT")
-        self.SHEET_USERS_ENDPOINT = os.environ.get("SHEET_USERS_ENDPOINT")
-        self.SHEET_TOKEN = os.environ.get("SHEET_TOKEN")
+        self.SHEET_FLIGHT_ENDPOINT = os.getenv("SHEET_FLIGHT_ENDPOINT")
+        self.SHEET_USERS_ENDPOINT = os.getenv("SHEET_USERS_ENDPOINT")
+        self.SHEET_TOKEN = os.getenv("SHEET_TOKEN")
         self.HEADERS = {"Authorization": f"Bearer {self.SHEET_TOKEN}"}
 
     def get_destination_data(self) -> {}:
@@ -18,12 +17,12 @@ class DataManager:
     def update_destination_codes(self, codes):
         index = 2
         for code in codes:
-            body = {
-                "price": {
-                    "iataCode": code
-                }
-            }
-            response = requests.put(url=f"{self.SHEET_FLIGHT_ENDPOINT}/{index}", headers=self.HEADERS, json=body)
+            body = {"price": {"iataCode": code}}
+            response = requests.put(
+                url=f"{self.SHEET_FLIGHT_ENDPOINT}/{index}",
+                headers=self.HEADERS,
+                json=body,
+            )
             print(response.text)
             index += 1
 

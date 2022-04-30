@@ -1,8 +1,7 @@
 from datetime import datetime, timedelta
 
-from dotenv import load_dotenv
-
 from data_manager import DataManager
+from dotenv import load_dotenv
 from flight_search import FlightSearch
 from notification_manager import NotificationManager
 
@@ -30,19 +29,25 @@ for destination in sheet_data:
         origin_city_code=ORIGIN_CITY_IATA,
         destination_city_code=destination["iataCode"],
         from_time=tomorrow,
-        to_time=six_months_from_today
+        to_time=six_months_from_today,
     )
     if flight and flight.price < destination["lowestPrice"]:
         users = data_manager.get_customer_emails()
         emails = [row["email"] for row in users]
         names = [row["firstName"] for row in users]
-        message = f"Low price alert! Only ${flight.price} to fly from {flight.origin_city}-{flight.origin_airport} " \
-                  f"to {flight.destination_city}-{flight.destination_airport}, from {flight.out_date} to " \
-                  f"{flight.return_date}."
+        message = (
+            f"Low price alert! Only ${flight.price} to fly from {flight.origin_city}-{flight.origin_airport} "
+            f"to {flight.destination_city}-{flight.destination_airport}, from {flight.out_date} to "
+            f"{flight.return_date}."
+        )
         if flight.stop_overs > 0:
-            message += f"\nFlight has {flight.stop_overs} stop over, via {flight.via_city}."
-        link = f"https://www.google.co.uk/flights?hl=en#flt={flight.origin_airport}.{flight.destination_airport}." \
-               f"{flight.out_date}*{flight.destination_airport}.{flight.origin_airport}.{flight.return_date}"
+            message += (
+                f"\nFlight has {flight.stop_overs} stop over, via {flight.via_city}."
+            )
+        link = (
+            f"https://www.google.co.uk/flights?hl=en#flt={flight.origin_airport}.{flight.destination_airport}."
+            f"{flight.out_date}*{flight.destination_airport}.{flight.origin_airport}.{flight.return_date}"
+        )
 
         # notification_manager.send_sms(message)
 
