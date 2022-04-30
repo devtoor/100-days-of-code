@@ -1,5 +1,5 @@
 import random
-from tkinter import *
+from tkinter import Button, Canvas, PhotoImage, Tk
 
 import pandas
 
@@ -61,9 +61,19 @@ card_title = canvas.create_text(400, 150, fill="black", font=("Ariel", 40, "ital
 card_word = canvas.create_text(400, 263, fill="black", font=("Ariel", 60, "bold"))
 canvas.grid(column=0, row=0, columnspan=2)
 
-wrong_button = Button(image=WRONG_BUTTON_IMG, highlightthickness=0, bd=0, command=generate_random_card)
+wrong_button = Button(
+    image=WRONG_BUTTON_IMG,
+    highlightthickness=0,
+    bd=0,
+    command=generate_random_card,
+)
 wrong_button.grid(column=0, row=1)
-right_button = Button(image=RIGHT_BUTTON_IMG, highlightthickness=0, bd=0, command=right_answer)
+right_button = Button(
+    image=RIGHT_BUTTON_IMG,
+    highlightthickness=0,
+    bd=0,
+    command=right_answer,
+)
 right_button.grid(column=1, row=1)
 
 generate_random_card()
