@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 
 load_dotenv()
 
-driver = webdriver.Chrome(service=Service(os.environ.get("CHROME_DRIVER_PATH")))
+driver = webdriver.Chrome(service=Service(os.getenv("CHROME_DRIVER_PATH")))
 driver.get("http://orteil.dashnet.org/experiments/cookie/")
 
 cookie = driver.find_element(by=By.ID, value="cookie")
