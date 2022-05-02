@@ -24,11 +24,11 @@ title = soup.find(name="span", id="productTitle").get_text().strip()
 load_dotenv()
 if price < BUY_PRICE:
     message = f"{title} is now ${price}"
-    with smtplib.SMTP(os.getenv("SMTP_ADDRESS"), port=587) as connection:
+    with smtplib.SMTP(os.getenv("SMTP_ADDRESS", ""), port=587) as connection:
         connection.starttls()
-        connection.login(os.getenv("EMAIL"), os.getenv("PASSWORD"))
+        connection.login(os.getenv("EMAIL", ""), os.getenv("PASSWORD", ""))
         connection.sendmail(
-            from_addr=os.getenv("EMAIL"),
-            to_addrs=os.getenv("EMAIL"),
+            from_addr=os.getenv("EMAIL", ""),
+            to_addrs=os.getenv("EMAIL", ""),
             msg=f"Subject:Amazon Price Alert!\n\n{message}\n{URL}",
         )
