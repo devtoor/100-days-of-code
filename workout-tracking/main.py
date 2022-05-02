@@ -8,16 +8,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-GENDER = os.getenv("GENDER")
-WEIGHT_KG = float(os.getenv("WEIGHT_KG"))
-HEIGHT_CM = float(os.getenv("HEIGHT_CM"))
-AGE = int(os.getenv("AGE"))
+GENDER = os.getenv("GENDER", "")
+WEIGHT_KG = os.getenv("WEIGHT_KG", "")
+HEIGHT_CM = os.getenv("HEIGHT_CM", "")
+AGE = os.getenv("AGE", "")
 
-EXERCISE_APP_ID = os.getenv("EXERCISE_APP_ID")
-EXERCISE_API_KEY = os.getenv("EXERCISE_API_KEY")
+EXERCISE_APP_ID = os.getenv("EXERCISE_APP_ID", "")
+EXERCISE_API_KEY = os.getenv("EXERCISE_API_KEY", "")
 EXERCISE_ENDPOINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
-SHEET_ENDPOINT = os.getenv("SHEET_ENDPOINT")
-SHEET_TOKEN = os.getenv("SHEET_TOKEN")
+SHEET_ENDPOINT = os.getenv("SHEET_ENDPOINT", "")
+SHEET_TOKEN = os.getenv("SHEET_TOKEN", "")
 
 exercise_headers = {
     "x-app-id": EXERCISE_APP_ID,
