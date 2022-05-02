@@ -52,5 +52,6 @@ repos:
         args:
         -   --pretty
         -   --show-error-codes
+        -   --ignore-missing-imports
         additional_dependencies:
         -   types-all
