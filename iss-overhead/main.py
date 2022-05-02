@@ -10,11 +10,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-SMTP_ADDRESS = os.getenv("SMTP_ADDRESS")
-EMAIL = os.getenv("EMAIL")
-PASSWORD = os.getenv("PASSWORD")
-LATITUDE = float(os.getenv("LATITUDE"))
-LONGITUDE = float(os.getenv("LONGITUDE"))
+SMTP_ADDRESS = os.getenv("SMTP_ADDRESS", "")
+EMAIL = os.getenv("EMAIL", "")
+PASSWORD = os.getenv("PASSWORD", "")
+LATITUDE = float(os.getenv("LATITUDE", ""))
+LONGITUDE = float(os.getenv("LONGITUDE", ""))
 
 
 def is_iss_overhead():
