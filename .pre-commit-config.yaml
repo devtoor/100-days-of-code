@@ -49,5 +49,8 @@ repos:
     rev: v0.950
     hooks:
     -   id: mypy
+        args:
+        -   --pretty
+        -   --show-error-codes
         additional_dependencies:
         -   types-all
