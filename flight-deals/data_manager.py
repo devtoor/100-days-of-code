@@ -12,7 +12,7 @@ class DataManager:
         self.SHEET_TOKEN = os.getenv("SHEET_TOKEN")
         self.HEADERS = {"Authorization": f"Bearer {self.SHEET_TOKEN}"}
 
-    def get_destination_data(self) -> {}:
+    def get_destination_data(self):
         response = requests.get(url=self.SHEET_FLIGHT_ENDPOINT, headers=self.HEADERS)
         return response.json()["prices"]
 
