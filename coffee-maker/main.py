@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import cast
+
 from data import INITIAL_RESOURCES
 from data import MENU
 
@@ -62,5 +64,5 @@ while is_on:
         if is_resources_sufficient(MENU[user_input]["ingredients"]):
             cost = MENU[user_input]["cost"]
             if is_transaction_completed(process_coins(), cost):
-                profit += cost
+                profit += cast(float, cost)
                 make_coffee(user_input, MENU[user_input]["ingredients"])
