@@ -16,8 +16,8 @@ TWILIO_NUMBER = os.getenv("TWILIO_NUMBER")
 TWILIO_VERIFIED_NUMBER = os.getenv("TWILIO_VERIFIED_NUMBER")
 
 parameter = {
-    "lat": float(os.getenv("LATITUDE")),
-    "lon": float(os.getenv("LONGITUDE")),
+    "lat": os.getenv("LATITUDE"),
+    "lon": os.getenv("LONGITUDE"),
     "exclude": "current,minutely,daily",
     "appid": WEATHER_API_KEY,
 }
